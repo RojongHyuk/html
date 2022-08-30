@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>CSS연습</title>
+        <style>
+            .box{
+                width:100px;
+                height:100px;
+                background: yellow;
+                margin:10px;
+                float:left;
+                border:2px dotted black;
+            }
+            input[type="text"]{
+                background: blue;
+
+            } 
+            input[type="password"]{
+                background: red;
+
+            }
+            input{
+                padding: 10px;
+                color: white;
+            }
+            input:hover{
+                background: green;
+
+            }
+            .box:hover{ 
+                background: red;
+            }
+            .box:active{ 
+                background: blue;
+            
+        </style>
+    </head>
+    <body>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <form>
+            <input type="text">
+            <hr>
+            <input type="text">
+            <hr>
+            <input type="password">
+        </form>
+    </body>
+</html>

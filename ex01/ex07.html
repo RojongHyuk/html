@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <title>입력 양식 태그</title>
+    </head>
+    <body>
+        <form> <!--입력 양식 태그 필수코드-->
+            <table border=1>
+                <tr>
+                    <td>이름:</td>
+                    <td><input type="text" name="name" value="홍길동"></td>
+                </tr>
+                <tr>
+                    <td>전화번호:</td>
+                    <td><input type="text" name="address" value="인천 남구"></td>
+                </tr>
+                <tr>
+                    <td>성별:</td>
+                    <td>
+                        <input type="radio" name="gender" value="M" checked>남자
+                        <input type="radio" name="gender" value="F">여자
+                    </td>
+                </tr>
+                <tr>
+                    <td>취미</td>
+                    <td>
+                        <input type="checkbox" name="hobby1" value="영화감상">영화감상
+                        <input type="checkbox" name="hobby2" value="운동">운동
+                        <input type="checkbox" name="hobby3" value="독서" checked>독서
+                    </td>
+                </tr>
+                <tr>
+                    <td>직업</td>
+                    <td>
+                        <select name="job">
+                            <option>군인</option>
+                            <option>프로그래머</option>
+                            <option selected>강사</option>
+                            <option>기타</option>
+                        </select>
+                    </td>
+                </tr>
+          </table>
+          <input type="submit" value="저장">
+          <input type="reset" value="취소">
+          <input type="button" value="일반">
+        </form>
+    </body>
+</html>
