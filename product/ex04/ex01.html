@@ -1,0 +1,189 @@
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+        <title>게시글</title>
+        <style>
+            @font-face{
+                font-family:HSS;
+                src: url("HSSantokki-Regular.ttf");
+            }
+        *{margin: 0px; padding: 0px;}
+        body {
+            width: 960px; 
+            margin:0px auto; 
+            font-family: HSS;}
+        #bottom{
+            text-align: center;
+            border-top: 5px solid gray;
+            padding: 20px 0px;
+            margin: 20px 0px;
+        }
+        #middle{
+            text-align: center;
+            margin-top: 30px;
+        }
+        table{
+            border-collapse: collapse;
+            margin: 0px auto;
+            margin-top: 50px;
+            margin-bottom: 10px;
+        }
+        td{
+            border-bottom: 1px solid gray;
+            padding: 5px;
+        }
+        #posts .title{
+            background: skyblue;
+            color:white;
+            text-align: center;
+            font-size: 20px;
+        }
+        #posts .row:hover{
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button{
+            background: skyblue;
+            color: white;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:disabled{
+            background: gray;
+        }
+        #info{
+        text-align:left;
+        width:750px;
+        margin:0px auto;
+        margin-top:20px"
+        }
+         </style>
+    </head>
+    <body>
+        <div id="top">
+            <img src="cgv.png" width="960">
+        </div>
+        <div id="middle">
+            <h1>게시글 목록</h1>
+            <table id="posts"></table>
+            <script id="temp" type="text/x-handlebars-template">
+                <tr class="title">
+                    <td width="50">No.</td>
+                    <td width="700">Title</td>
+                </tr>
+                {{#each .}}
+                <tr class="row" id="{{id}}" title="{{title}}" body="{{body}}">
+                    <td>{{id}}</td>
+                    <td>{{title}}</td>
+                </tr>
+                {{/each}}
+            </script>
+            <div>                         
+                <button id="prev">◀</button>
+                <span id="page">1</span>
+                <button id="next">▶</button>
+            </div>
+            <hr>
+            <!--게시글 정보-->
+            <div id="info"></div>
+            <script id="temp1" type="text/x-handlebars-template">
+                <h2 style="color:red">{{id}}.{{title}}</h2>
+                <p style="color: gray;">{{body}}</p>
+            </script>
+            <!--댓글 목록-->
+            <table id="comments"></table>
+            <script id="temp2" type="text/x-handlebars-template">
+                {{#each .}}
+                <tr>
+                    <td width="750">
+                        <h4>{{id}}.{{email}}</h4>
+                        <p>{{body}}</p>
+                        </td>
+                </tr>
+              
+                {{/each}}
+            </script>
+        </div>
+        <div id="bottom">
+            <h3>Copyright 2022. 인천일보아카데미 All rights reserved.</h3>
+        </div>
+    </body>
+    <script>
+      page=1;
+      perpage=5;
+      getList();
+      
+      //posts 테이블의 row를 클릭한 경우
+      $("#posts").on("click",".row", function(){
+        id=$(this).attr("id");
+        title=$(this).attr("title");
+        body=$(this).attr("body");
+        row = {id:id, title:title, body:body}
+        temp=Handlebars.compile($("#temp1").html());
+        $("#info").html(temp(row));
+
+        //댓글목록 가지고 오기
+        $.ajax({
+            type:"get",
+            url:"https://jsonplaceholder.typicode.com/comments?postId="+id,
+            dataType:"json",
+            success:function(data){
+                temp=Handlebars.compile($("#temp2").html());
+                $("#comments").html(temp(data));
+            }
+
+        })
+      });
+      //다음 버튼을 클릭한 경우
+      $("#next").on("click",function(){
+        page++;
+        getList();
+      })
+
+      //이전 버튼을 클릭한 경우
+      $("#prev").on("click",function(){
+        page--;
+        getList();
+      })
+
+      function getList(){
+        $.ajax({
+            type:"get",
+            url:"https://jsonplaceholder.typicode.com/posts",
+            dataType:"json",
+            success:function(result){
+                rows=[];
+                $(result).each(function(){
+                    start=(page-1)*perpage+1;
+                    end=page * perpage;
+                    if(this.id >=start && this.id<=end){
+                        row={id:this.id , title:this.title, body:this.body}
+                        rows.push(row);
+                    }
+                
+                })
+                temp=Handlebars.compile($("#temp").html());
+                $("#posts").html(temp(rows));
+                $("#page").html(page)
+
+                if(page==1){
+                    $("#prev").attr("disabled", true);
+                }else{
+                    $("#prev").attr("disabled", false);
+                }
+
+                lastPage=Math.ceil(100/perpage);
+                if(page==lastPage){
+                    $("#next").attr("disabled", true);
+                }else{
+                    $("#next").attr("disabled", false);
+                }
+                $("#page").html(page+"/"+lastPage)
+            }
+        })
+     }
+    </script>
+</html>
