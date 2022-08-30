@@ -1,0 +1,45 @@
+           table{
+                width: 800px;
+                margin: 0px auto;
+                border-collapse: collapse; 
+            }
+            td{
+                border: 1px solid gray;
+                padding: 10px;
+                font-size: 20px;
+                color: black;
+            }
+            #address .title{
+                background: green;
+                text-align: center;
+            }
+            #address .row:hover{
+                background: white;
+            } 
+            #address .row:active{
+                background: burlywood;
+            } 
+
+            body{
+                background: skyblue;
+          
+            }
+            #container, #address{
+                background: rgb(114, 250, 250);
+                overflow: hidden;
+                width: 1250px;
+                padding: 45px;
+                margin: 0px auto;
+                margin-bottom: 20px;
+            }
+            .box{
+                background: rgb(131, 103, 177);
+                width: 200px;
+                height: 200px;
+                margin: 15px;
+                float: left;
+                border: 7px solid white;
+                box-shadow: 20px 20px 20px gray; 
+                font-size: 30px;
+                text-align: center;
+            }

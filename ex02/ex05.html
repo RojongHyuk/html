@@ -1,0 +1,145 @@
+<html>
+    <head>
+        <title>홍길동 쇼핑물</title>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+        <style>
+            *{
+                margin: 0px ; padding: 0px;
+                background: black;
+             
+            }
+            body{
+                width: 960px;
+                margin: 0px auto;
+            }
+            #bottom{
+                text-align: center;
+                border-top: 1px dotted gray;
+                margin-top: 20px;
+                padding-top: 20px;
+            }
+            #best{
+                width: 960px; 
+                overflow: hidden;
+                margin-top: 20px;
+            }
+            #best .box{
+                width: 300px;
+                height: 300px;
+                float: left;
+                border: 1px solid gray;
+                border-radius: 10px;
+                font-style: red;
+            }
+            #best .box:nth-child(2){
+                margin-left: 25px;
+                margin-right: 25px;
+            }
+            #recent{
+                width: 960px;
+                overflow: hidden;
+                margin-top: 30px;
+                font-style: red;
+            }
+            #recent .box{
+                width: 300px;
+                height: 150px;
+                border: 1px solid gray;
+                float: left;
+                border-radius: 10px;
+                margin-bottom: 10px;
+                font-style: red;
+            }
+            #recent .box:nth-child(3n-1){
+                margin-left: 25px;
+                margin-right: 25px;
+            }
+
+            .box {
+                text-align: center; 
+                padding-top: 15px;
+            }
+            .title{
+                text-align: center;
+                padding-top: 10px;
+            }
+            #recent .box{overflow: hidden;}
+            #recent .box .image{ width: 110; float: left;}
+            #recent .bow .info{
+               width: 170px; float: right; text-align: left; padding-top: 10px;}
+            
+            
+           
+        </style>
+    </head>
+    <body>
+        <div id="top">
+            <img src="포스터2.jpg" width="960" height="460">
+        </div>
+        <div id="middle">
+            <div id="best"></div>
+            <script id="temp" type="text/x-handlebars-template">
+                {{#each .}}
+                    <div class="box">
+                        <img src="{{image}}" width="180">
+                        <span style="color:red">
+                        <h2><div class="title">{{title}}</div></h2>
+                    </span>
+                        
+                    </div>
+                {{/each}}
+            </script>
+            <!--최근 상품 목록-->
+            <div id="recent"></div>
+               <script id="temp1" type="text/x-handlebars-template">
+                {{#each .}}
+                    <div class="box">
+                        <div class="image">
+                            <img src="{{image}}" width="100">
+                        </div>
+                        <div class="info">
+                                <span style="color:red">
+                                
+                                <h2><div class="title">{{title}}</div></h2>
+                                <h2><div class="price">{{price}}</div></h2>
+                            </span>
+                        </div>
+                    </div>
+                {{/each}}
+               </script>
+            </div>
+        <div id="bottom">
+        <H3>Copyright 2022. 인천일보 아카데미 All right reserved</H3>
+    </div>
+    </body>
+    <script>
+        //JSON 데이터
+        var bestData=[
+            {"image": "박효신.jpg",
+             "title": "그윈플렌"},
+            {"image": "양준모.jpg",
+             "title": "우르수스"},
+            {"image": "이수빈.jpg",
+             "title": "데아"}
+        ];
+
+       var temp=Handlebars.compile($("#temp").html());
+       $("#best").html(temp(bestData));
+
+       var recentData=[
+        {"image":"박은태.jpg", "title":"그윈플렌 역", "price":"박은태"},
+        {"image":"박강현.jpg", "title":"그윈플렌 역", "price":"박강현"},
+        {"image":"유소리.jpg", "title":"데아 역", "price":"유소리"},
+        {"image":"민영기.jpg", "title":"우르수스 역", "price":"민영기"},
+        {"image":"김소향.jpg", "title":"조시아나 여공작 역", "price":"김소향"},
+        {"image":"신영숙.jpg", "title":"조시아나 여공작 역", "price":"신영숙"},
+        {"image":"이상준.jpg", "title":"페드로 역", "price":"이상준"},
+        {"image":"김승대.jpg", "title":"데이빗 더리모어 경 역", "price":"김승대"},
+        {"image":"최성원.jpg", "title":"데이빗 더리모어 경 역", "price":"최성원"}
+       ]
+
+       var temp1=Handlebars.compile($("#temp1").html());
+       $("#recent").html(temp1(recentData));
+    </script>
+</html>
